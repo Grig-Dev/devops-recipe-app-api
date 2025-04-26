@@ -5,12 +5,10 @@ on:
         inputs:
             environment:
                 type: choice
-                descriptions: Which environment to remove AWS resources for ?
+                description: Which environment to remove AWS resources for? # Fixed the key
                 options:
                     - staging
                     - prod
-
-
 
 jobs:
     destroy:
@@ -25,7 +23,7 @@ jobs:
                 AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
                 AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
               run: |
-                export TF_WORKSPACE=${{ github.event.inpust.environment }} && \
+                export TF_WORKSPACE=${{ github.event.inputs.environment }} && \
                 cd infra/ && \
                 docker compose run --rm terraform -chdir=deploy/ init && \
                 docker compose run --rm terraform -chdir=deploy/ destroy -auto-approve

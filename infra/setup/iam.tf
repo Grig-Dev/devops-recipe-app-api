@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "tf_backend" {
   }
   statement {
     effect    = "Allow"
-    actions   = ["dynamodb:*"]
+    actions   = ["dynamodb:GetItem","dynamodb:PutItem","dynamodb:DeleteItem","dynamodb:DescribeTable"]
     resources = ["arn:aws:dynamodb:*:*:table/${var.tf_state_lock_table}"]
   }
 }
